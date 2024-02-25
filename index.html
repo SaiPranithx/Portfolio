@@ -82,13 +82,18 @@
                         <p>B.Tech CSE<br />Currently in IV SEM</p>
                     </div>
                 </div>
-                <div class="text-container">
+                <div class="text-container" data-bg-color="#b6b600" data-fg-color="black">
                     <p>
-                        As a motivated and ambitious second-year undergraduate student pursuing a Bachelor's degree in Computer Science and
-                        Engineering, I am seeking a challenging internship or part-time position where I can apply and enhance my coding skills
-                        while contributing to real-world projects. With a solid foundation in programming languages, including Java, C, HTML,
-                        and a passion for problem-solving, I am eager to leverage my technical acumen to make meaningful contributions to a dynamic
-                        team. My goal is to gain hands-on experience, deepen my understanding of software development, and ultimately
+                        As a motivated and ambitious second-year undergraduate student pursuing a Bachelor's degree in
+                        Computer Science and
+                        Engineering, I am seeking a challenging internship or part-time position where I can apply and
+                        enhance my coding skills
+                        while contributing to real-world projects. With a solid foundation in programming languages,
+                        including Java, C, HTML,
+                        and a passion for problem-solving, I am eager to leverage my technical acumen to make meaningful
+                        contributions to a dynamic
+                        team. My goal is to gain hands-on experience, deepen my understanding of software development,
+                        and ultimately
                         contribute to the success of innovative projects in a professional setting.
                     </p>
                 </div>
@@ -261,6 +266,59 @@
         <p>Copyright &#169; 2024 Sai Pranith. All Rights Reserved.</p>
     </footer>
     <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+        integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+        integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/split-type"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger)
+
+        const splitTypes = document.querySelectorAll('.text-container')
+
+        splitTypes.forEach((char, i) => {
+
+            const bg = char.dataset.bgColor // data-bg-color is coverted to dataset.bgColor
+            const fg = char.dataset.fgColor
+
+            const text = new SplitType(char, { types: 'chars' }) //char level animations
+            gsap.fromTo(text.chars, {
+                color: bg,
+            },
+                {
+                    color: fg,
+                    duration: 0.03,
+                    stagger: 0.02,
+                    scrollTrigger: {
+                        trigger: char,
+                        start: 'top 70%',
+                        end: 'top 20%',
+                        scrub: false,
+                        markers: false,
+                        toggleActions: 'play play reverse reverse',
+                    }
+
+                })
+        })
+
+
+
+        const lenis = new Lenis()
+
+        lenis.on('scroll', (e) => {
+            console.log(e)
+        })
+
+        function raf(time) {
+            lenis.raf(time)
+            requestAnimationFrame(raf)
+        }
+
+        requestAnimationFrame(raf)
+    </script>
 </body>
 
 </html>
